@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: javawebdeploy
+  namespace: prod
+spec:
+  replicas: 2
+  strategy:
+     type: Recreate
+  selector:
+     matchLabels:
+        app: javawebapp
+  template:
+     metadata:
+        name: javawebcontainer
+        labels:
+          app: javawebapp
+     spec:
+         containers:
+         - name: javawebcontainer
+           image: uday745/maven-web-application:1.0
+           ports:
+           - containerPort: 8080
+
