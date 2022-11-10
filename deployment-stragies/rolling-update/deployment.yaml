@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: javawebappdp
+   namespace: prod
+spec:
+   replicas: 5
+   strategy:
+      type: RollingUpdate
+      rollingUpdate:
+         maxUnavailable: 2
+         maxSurge: 1
+   minReadySeconds: 30
+   selector:
+      matchLabels:
+         app: javaapp
+   template:
+      metadata:
+         name: javapod
+         labels:
+            app: javaapp
+      spec:
+         containers:
+         - name: javacontainer
+           image: uday745/javawebapp:4.0
+           ports:
+           - containerPort: 8080
