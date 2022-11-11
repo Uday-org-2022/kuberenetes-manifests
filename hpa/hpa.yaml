@@ -1,7 +1,7 @@
-apiVersion: autoscaling/v2beta1
-kind: HorizantalAutoPodScaler
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
 metadata:
-   name: javawebdeploymentautoscaler
+   name: javaautoscaler
 spec:
    scaleTargetRef:
       apiVersion: apps/v1
@@ -10,7 +10,9 @@ spec:
    minReplicas: 2
    maxReplicas: 5
    metrics:
-      - resource:
-           name: cpu
-           targetAverageUtillization: 50
-        type: Resource
+   - type: Resource
+     resource:
+       name: cpu
+       target:
+         type: Utilization
+         averageUtilization: 50
