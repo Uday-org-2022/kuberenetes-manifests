@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: springapp
+  namespace: prod
+spec:
+  replicas: 2
+  selector:
+     matchLabels:
+        app: springapp
+  template:
+     metadata:
+        name: springapppod
+        labels:
+          app: springapp
+     spec:
+        containers:
+        - name: springappcontainer
+          image: dockerhandson/spring-boot-mongo
+          ports:
+          - containerPort: 8080
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          env:
+          - name: MONGO_DB_HOSTNAME
+            value: mongo
+          - name: MONGO_DB_USERNAME
+            value: devdb
+          - name: MONGO_DB_PASSWORD
+            value: devdb@123
