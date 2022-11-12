@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+   name: mongodbrs
+   namespace: prod
+spec:
+   selector:
+     matchLabels:
+        app: mongodb
+   template:
+     metadata:
+        name: mongodbpod
+        labels:
+          app: mongodb
+     spec:
+        containers:
+        - name: mongodbcontainer
+          image: mongo
+          ports:
+          - containerPort: 27017
+          env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            value: devdb
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            value: devdb@123
+          volumeMounts:
+          - name: nfs-server
+            mountPath: /data/db
+        volumes:
+        - name: nfs-server
+          nfs:
+            server: 172.31.12.244
+            path: "/mnt/share"
