@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+   name: pv-hostpath
+   labels:
+      type: label
+spec:
+   storageClassName: mannual
+   capacity:
+      storage: 1Gi
+   accessModes:
+      - ReadWriteOnce
+   hostPath:
+      path: "/kube"
