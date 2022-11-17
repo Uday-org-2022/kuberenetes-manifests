@@ -1,0 +1,2 @@
+chown: changing ownership of '/data/db': Operation not permitted
+chown: changing ownership of '/data/db/index.html': Operation not permitted

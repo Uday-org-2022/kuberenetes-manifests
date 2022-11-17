@@ -16,6 +16,8 @@ spec:
         containers:
         - name: mongodbcontainer
           image: mongo
+          securityContext:
+             runAsUser: 0
           ports:
           - containerPort: 27017
           env:

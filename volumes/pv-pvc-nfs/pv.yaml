@@ -3,13 +3,13 @@ kind: PersistentVolume
 metadata:
    name: pv-nfs-vol1
    labels:
-      type: label
+      type: local
 spec:
-   storageClassName: mannual
+   storageClassName: manual
    capacity:
       storage: 1Gi
    accessModes:
       - ReadWriteMany
    nfs:
-      server: "172.31.12.244"
-      path: "/mnt/share"
+      server: 172.31.12.244
+      path: "/mnt/nfs_share"
