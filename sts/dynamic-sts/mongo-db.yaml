@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+   name: mongodb
+   namespace: prod
+spec:
+   replicas: 2
+   serviceName: "mongo-svc"
+   selector:
+      matchLabels:
+         run: mongo
+   template:
+      metadata:
+         name: mongo
+         labels:
+            run: mongo
+      spec:
+         containers:
+         - name: mongo
+           image: mongo
+           ports:
+           - containerPort: 27017
+           env:
+           - name: MONGO_INITDB_ROOT_USERNAME
+             value: devdb
+           - name: MONGO_INITDB_ROOT_PASSWORD
+             value: devdb@123
+           volumeMounts: 
+           - name: mongodb
+             mountPath: /data/db
+   volumeClaimTemplates:
+   - metadata: 
+       name: mongodb     
+     spec:
+        storageClassName: nfs-storageclass
+        accessModes:
+           - ReadWriteMany
+        resources:
+           requests:
+              storage: 1Gi
+
+

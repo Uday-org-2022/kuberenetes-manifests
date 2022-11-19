@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: mongo-svc
+    namespace: prod
+spec:
+    type: ClusterIP
+    ports:
+    - port: 27017
+      targetPort: 27017
+    selector:
+       run: mongo
+    clusterIP: None #Headless svc
