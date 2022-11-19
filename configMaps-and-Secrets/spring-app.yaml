@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: spring-app
+   namespace: prod
+spec:
+   replicas: 2
+   selector:
+      matchLabels:
+          app: spring-app
+   template:
+      metadata:
+         name: spring-app-pod
+         labels:
+            app: spring-app
+      spec:
+         containers:
+         - name: springappcontainer
+           image: dockerhandson/spring-boot-mongo
+           ports:
+           - containerPort: 8080
+           env:
+           - name: MONGO_DB_USERNAME
+             valueFrom:
+                 configMapKeyRef:
+                     name: mongo-username
+                     key: username
+           - name: MONGO_DB_PASSWORD
+             valueFrom:
+                 secretKeyRef:
+                     name: mongodbpwd
+                     key: password
+           - name: MONGO_DB_HOSTNAME
+             value: mongo
+
