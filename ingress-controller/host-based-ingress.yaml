@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1 
+kind: Ingress
+metadata:
+   name: ingress-resource-1
+   namespace: prod
+spec:
+   ingressClassName: nginx
+   rules:
+   - host: javawebapp.uudhhay.co.in
+     http:
+       paths:
+       - pathType: Prefix
+         path: "/java-web-app"
+         backend:
+           service:
+              name: javawebsvc
+              port: 
+                number: 80
+   - host: mavenwebapp.uudhhay.co.in
+     http:
+       paths:
+       - pathType: Prefix
+         path: "/maven-web-application"
+         backend:
+           service:
+              name: mavenwebsvc
+              port:
+                number: 80
+
+
+
