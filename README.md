@@ -43,7 +43,7 @@ subjects:
     name: k8s-admin
     namespace: kubernetes-dashboard
     
- kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep k8s-admin | awk '{print $1}')
+ kubectl -n kubernetes-dashboard create token k8s-admin
 
     
 
