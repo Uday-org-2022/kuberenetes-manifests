@@ -1,0 +1,21 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: nginx
+  namespace: canary
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - nginx-gateway
+  http:
+  - route:
+    - destination:
+        host: nginx.canary.svc.cluster.local
+        subset: stable
+      weight: 0
+    - destination:
+        host: nginx.canary.svc.cluster.local
+        subset: canary
+      weight: 100
+
